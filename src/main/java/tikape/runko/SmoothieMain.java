@@ -5,8 +5,13 @@
  */
 package tikape.runko;
 
+import java.util.HashMap;
+import spark.ModelAndView;
+import static spark.Spark.get;
+import spark.template.thymeleaf.ThymeleafTemplateEngine;
+import tikape.runko.database.AnnosDao;
 import tikape.runko.database.Database;
-import tikape.runko.database.OpiskelijaDao;
+import tikape.runko.database.RaakaAineDao;
 
 /**
  *
@@ -18,6 +23,15 @@ public class SmoothieMain {
         Database database = new Database("jdbc:sqlite:db/smoothie.db");
         database.init();
 
-        OpiskelijaDao opiskelijaDao = new OpiskelijaDao(database);
+        RaakaAineDao raakaAineDao = new RaakaAineDao(database);
+        AnnosDao annosDao = new AnnosDao(database);
+        
+        get("/", (req, res) -> {
+            HashMap map = new HashMap<>();
+            map.put("viesti", "tervehdys");
+
+            return new ModelAndView(map, "index");
+        }, new ThymeleafTemplateEngine());
+        
     }
 }
