@@ -33,5 +33,6 @@ public class SmoothieMain {
             return new ModelAndView(map, "index");
         }, new ThymeleafTemplateEngine());
         
+        //asd
     }
 }

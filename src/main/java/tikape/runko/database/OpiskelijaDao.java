@@ -66,10 +66,15 @@ public class OpiskelijaDao implements Dao<Opiskelija, Integer> {
 
         return opiskelijat;
     }
+    
+    @Override
+    public void delete(String s) throws SQLException {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
 
     @Override
-    public void delete(Integer key) throws SQLException {
-        // ei toteutettu
+    public void addOne(String s) throws SQLException {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 
 }
