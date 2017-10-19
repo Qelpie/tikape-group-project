@@ -33,6 +33,18 @@ public class SmoothieMain {
             return new ModelAndView(map, "index");
         }, new ThymeleafTemplateEngine());
         
-        //asd
+        get("/smoothiet", (req, res) -> {
+            HashMap map = new HashMap<>();
+            map.put("smoothiet", AnnosDao.findAll());
+
+            return new ModelAndView(map, "smoothiet");
+        }, new ThymeleafTemplateEngine());
+        
+        get("/aineksett", (req, res) -> {
+            HashMap map = new HashMap<>();
+            map.put("ainekset", RaakaAineDao.findAll());
+
+            return new ModelAndView(map, "ainekset");
+        }, new ThymeleafTemplateEngine());
     }
 }
