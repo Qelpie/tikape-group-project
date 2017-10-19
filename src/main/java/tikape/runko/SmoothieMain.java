@@ -15,7 +15,7 @@ import tikape.runko.database.OpiskelijaDao;
 public class SmoothieMain {
     
     public static void main(String[] args) throws Exception {
-        Database database = new Database("jdbc:sqlite:smoothie.db");
+        Database database = new Database("jdbc:sqlite:db/smoothie.db");
         database.init();
 
         OpiskelijaDao opiskelijaDao = new OpiskelijaDao(database);
