@@ -45,9 +45,6 @@ public class AnnosRaakaAineDao implements Dao<AnnosRaakaAine, Integer>{
         //tätäkään ei varmaan tarvitse tässä kohtaa
     }
     
-    public List<AnnosRaakaAine> findAnnokseenLiittyvat() throws SQLException {
-        //etsii tiettyyn annokseen liittyvät
-        return null;
-    }
+    
     
 }

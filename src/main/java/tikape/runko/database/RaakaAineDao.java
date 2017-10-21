@@ -94,5 +94,25 @@ public class RaakaAineDao implements Dao<RaakaAine, Integer>{
         stmt.close();
         connection.close();
     }
+    
+    public List<RaakaAine> findAnnokseenLiittyvat(Integer annosId) throws SQLException {
+        String query = "SELECT RaakaAine.id, RaakaAine.nimi FROM RaakaAine, AnnosRaakaAine\n"
+                        +"     WHERE RaakaAine.id = AnnosRaakaAine.raaka_Aine_id"
+                        +"     AND AnnosRaakaAine.annosId = ?";
+        List<RaakaAine> raakaAineet = new ArrayList<>();
+        
+        try (Connection conn = database.getConnection()) {
+            PreparedStatement st = conn.prepareStatement(query);
+            st.setInt(1, annosId);
+            ResultSet result = st.executeQuery();
+            
+            while(result.next()) {
+                raakaAineet.add(new RaakaAine(result.getInt("id"), result.getString("nimi")));
+            }
+        }
+                        
+
+        return raakaAineet;
+    }
 
 }
