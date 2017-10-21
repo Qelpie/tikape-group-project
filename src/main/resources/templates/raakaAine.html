@@ -14,6 +14,12 @@ and open the template in the editor.
         
         <h2>Raaka-aineet</h2>
         
+        <ul>
+            <li th:each="raakaAine : ${raakaAine}">
+                <span th:text="${raakaAine.nimi}">raakaAine</span>
+            </li>
+        </ul>
+        
         <p>Lisää uusi raaka-aine</p>
         
         <form method="POST" action="">
