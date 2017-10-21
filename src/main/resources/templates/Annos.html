@@ -14,8 +14,8 @@ and open the template in the editor.xmlns="http://www.w3.org/1999/xhtml" xmlns:t
         <h2><span th:text="${Annos.nimi}">Annos</span></h2>
         
         <ul>
-            <li>
-                
+            <li th:each="raakaAine: ${raakaAine}">
+                <span th:text="${raakaAine.nimi}">raakaAine</span>
             </li>
         </ul>
         
