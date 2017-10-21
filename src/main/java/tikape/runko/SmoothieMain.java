@@ -40,7 +40,7 @@ public class SmoothieMain {
             return new ModelAndView(map, "smoothiet");
         }, new ThymeleafTemplateEngine());
         
-        get("/aineksett", (req, res) -> {
+        get("/ainekset", (req, res) -> {
             HashMap map = new HashMap<>();
             map.put("ainekset", RaakaAineDao.findAll());
 
