@@ -13,10 +13,10 @@ and open the template in the editor.
     <body>
         
         <h2>Smoothielista</h2>
-        
+
         <ul>
-            <li>
-                <span th:text="${Annos.nimi}">annoksen nimi</span> <a th:href="${'/annokset/' + Annos.id}">linkki</a>
+            <li th:each="annos : ${annokset}">
+                <span th:text="${annos}">Annoksen nimi</span>
             </li>
         </ul>
         

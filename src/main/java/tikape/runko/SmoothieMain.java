@@ -30,21 +30,21 @@ public class SmoothieMain {
             HashMap map = new HashMap<>();
             map.put("viesti", "tervehdys");
 
-            return new ModelAndView(map, "index");
+            return new ModelAndView(map, "smoothieindeksi");
         }, new ThymeleafTemplateEngine());
         
-        get("/smoothiet", (req, res) -> {
-            HashMap map = new HashMap<>();
-            map.put("smoothiet", AnnosDao.findAll());
-
-            return new ModelAndView(map, "smoothiet");
-        }, new ThymeleafTemplateEngine());
-        
-        get("/ainekset", (req, res) -> {
-            HashMap map = new HashMap<>();
-            map.put("ainekset", RaakaAineDao.findAll());
-
-            return new ModelAndView(map, "ainekset");
-        }, new ThymeleafTemplateEngine());
+//        get("/smoothiet", (req, res) -> {
+//            HashMap map = new HashMap<>();
+//            map.put("smoothiet", AnnosDao.findAll());
+//
+//            return new ModelAndView(map, "smoothiet");
+//        }, new ThymeleafTemplateEngine());
+//        
+//        get("/ainekset", (req, res) -> {
+//            HashMap map = new HashMap<>();
+//            map.put("ainekset", RaakaAineDao.findAll());
+//
+//            return new ModelAndView(map, "ainekset");
+//        }, new ThymeleafTemplateEngine());
     }
 }
