@@ -16,11 +16,20 @@ and open the template in the editor.
 
         <ul>
             <li th:each="annos: ${annokset}">
-                <span th:text="${annos.nimi}">Annoksen nimi</span>
+                <a th:href="@{~/smoothiet/{id}(id=${annos.id})}">
+                    <span th:text="${annos.nimi}">Annoksen nimi</span>
+                </a>
             </li>
         </ul>
         
-        <p><a href ="/Annos">Annos testi</a></p>
+        <ul>
+            <li>
+                <a href ="/smoothiet">Luo uusi smoothie</a>
+            </li>
+            <li>
+                <a href ="/ainekset">Tarkastele ja lisää aineksia</a>
+            </li>
+        </ul>
         
         
     </body>

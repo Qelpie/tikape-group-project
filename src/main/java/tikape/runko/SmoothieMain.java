@@ -5,17 +5,17 @@
  */
 package tikape.runko;
 
-import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import spark.ModelAndView;
-import static spark.Spark.get;
+import spark.Spark;
 import spark.template.thymeleaf.ThymeleafTemplateEngine;
 import tikape.runko.database.AnnosDao;
 import tikape.runko.database.Database;
 import tikape.runko.database.RaakaAineDao;
 import tikape.runko.domain.Annos;
 import tikape.runko.domain.RaakaAine;
+import org.thymeleaf.context.Context;
 
 /**
  *
@@ -32,19 +32,26 @@ public class SmoothieMain {
         
         List<RaakaAine> raakaAineet = raakaAineDao.findAll();
         
-        get("/", (req, res) -> {
+        Spark.get("/", (req, res) -> {
             HashMap map = new HashMap<>();
             map.put("annokset", annosDao.findAll());
 
             return new ModelAndView(map, "smoothieindeksi");
         }, new ThymeleafTemplateEngine());
         
-        get("/smoothiet", (req, res) -> {
+        Spark.get("/smoothiet/:id", (req, res) -> {
             HashMap map = new HashMap<>();
-            map.put("Annostesti", raakaAineDao.findAll());
-
+            
+//            res.redirect("/");
             return new ModelAndView(map, "Annos");
-        }, new ThymeleafTemplateEngine());
+        });
+        
+//        get("/smoothiet", (req, res) -> {
+//            HashMap map = new HashMap<>();
+//            map.put("Annostesti", raakaAineDao.findAll());
+//
+//            return new ModelAndView(map, "Annos");
+//        }, new ThymeleafTemplateEngine());
 //        
 //        get("/ainekset", (req, res) -> {
 //            HashMap map = new HashMap<>();
