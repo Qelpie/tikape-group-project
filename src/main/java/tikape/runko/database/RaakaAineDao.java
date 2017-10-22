@@ -33,6 +33,7 @@ public class RaakaAineDao implements Dao<RaakaAine, Integer>{
 
         ResultSet rs = stmt.executeQuery();
         boolean hasOne = rs.next();
+        
         if (!hasOne) {
             return null;
         }

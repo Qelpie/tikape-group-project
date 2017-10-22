@@ -16,6 +16,7 @@ import tikape.runko.database.RaakaAineDao;
 import tikape.runko.domain.Annos;
 import tikape.runko.domain.RaakaAine;
 import org.thymeleaf.context.Context;
+import tikape.runko.database.AnnosRaakaAineDao;
 
 /**
  *
@@ -29,9 +30,9 @@ public class SmoothieMain {
 
         RaakaAineDao raakaAineDao = new RaakaAineDao(database);
         AnnosDao annosDao = new AnnosDao(database);
+        AnnosRaakaAineDao annosRaakaAine = new AnnosRaakaAineDao(database);
         
-        List<RaakaAine> raakaAineet = raakaAineDao.findAll();
-        
+        // Create index-page:
         Spark.get("/", (req, res) -> {
             HashMap map = new HashMap<>();
             map.put("annokset", annosDao.findAll());
@@ -39,32 +40,23 @@ public class SmoothieMain {
             return new ModelAndView(map, "smoothieindex");
         }, new ThymeleafTemplateEngine());
         
+        // For spesific Annos, specific id:
         Spark.get("/smoothiet/:id", (req, res) -> {
             HashMap map = new HashMap<>();
+            
+            // Define Annos and its' id:
             Integer annosId = Integer.parseInt(req.params(":id"));
             Annos annos = annosDao.findOne(annosId);
             
+            // Find raakaAine list:
+            List<RaakaAine> raakaAineet = raakaAineDao.findAnnokseenLiittyvat(annosId);
+            
             map.put("annosId", annosId);
             map.put("annos", annos);
-            
-//            map.put("annokset", annosDao.findAll());
-//            map.put("raakaAineet", raakaAineDao.findAll());
+            map.put("raakaAineet", raakaAineet);
+            map.put("annosRaakaAine", annosRaakaAine.findOne(annosId));
             
             return new ModelAndView(map, "annos");
         },  new ThymeleafTemplateEngine());
-        
-//        get("/smoothiet", (req, res) -> {
-//            HashMap map = new HashMap<>();
-//            map.put("Annostesti", raakaAineDao.findAll());
-//
-//            return new ModelAndView(map, "Annos");
-//        }, new ThymeleafTemplateEngine());
-//        
-//        get("/ainekset", (req, res) -> {
-//            HashMap map = new HashMap<>();
-//            map.put("ainekset", RaakaAineDao.findAll());
-//
-//            return new ModelAndView(map, "ainekset");
-//        }, new ThymeleafTemplateEngine());
     }
 }

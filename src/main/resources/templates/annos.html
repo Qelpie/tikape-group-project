@@ -12,9 +12,19 @@ and open the template in the editor.xmlns="http://www.w3.org/1999/xhtml" xmlns:t
     <body>
         <h2><span th:text="${annos.nimi}">Annos</span></h2>
         
-
+        <ul>
+            <li th:each="raakaAine:${raakaAineet}">
+                <span th:text="${raakaAine.nimi}">Ainesosan nimi</span>
+            </li>
+            <li>
+                <span th:text="${raakaAine.maara}">Ainesosan maara</span>
+            </li>
+        </ul>
         
-        <p><a href="/">Smoothielistaukseen</a></p>
-        
+        <ul>
+            <li>
+                <a href="/">Smoothielistaukseen</a>
+            </li>
+        </ul>
     </body>
 </html>
