@@ -6,20 +6,15 @@ and open the template in the editor.xmlns="http://www.w3.org/1999/xhtml" xmlns:t
 -->
 <html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
     <head>
-        <title>TODO supply a title</title>
+        <title th:text="${annos.nimi}">Annos</title>
         <meta charset="UTF-8"/>
-        
     </head>
     <body>
         <h2><span th:text="${annos.nimi}">Annos</span></h2>
         
-        <ul>
-            <li th:each="raakaAine: ${raakaAine}">
-                <span th:text="${raakaAine.nimi}">raakaAine</span>
-            </li>
-        </ul>
+
         
-        <p><a href="/smoothieindeksi">Smoothielistaukseen</a></p>
+        <p><a href="/">Smoothielistaukseen</a></p>
         
     </body>
 </html>
