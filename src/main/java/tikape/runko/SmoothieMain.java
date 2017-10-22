@@ -14,6 +14,7 @@ import spark.template.thymeleaf.ThymeleafTemplateEngine;
 import tikape.runko.database.AnnosDao;
 import tikape.runko.database.Database;
 import tikape.runko.database.RaakaAineDao;
+import tikape.runko.domain.Annos;
 
 /**
  *
@@ -29,11 +30,11 @@ public class SmoothieMain {
         AnnosDao annosDao = new AnnosDao(database);
         
         List<RaakaAineDao> raakaAineet = new ArrayList<>();
-        List<AnnosDao> annokset = new ArrayList<>();
+        List<Annos> annokset = annosDao.findAll();
         
         get("/", (req, res) -> {
             HashMap map = new HashMap<>();
-            map.put("viesti", "tervehdys");
+            map.put("annos", annokset);
 
             return new ModelAndView(map, "smoothieindeksi");
         }, new ThymeleafTemplateEngine());
