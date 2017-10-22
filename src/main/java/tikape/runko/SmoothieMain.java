@@ -5,7 +5,9 @@
  */
 package tikape.runko;
 
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 import spark.ModelAndView;
 import static spark.Spark.get;
 import spark.template.thymeleaf.ThymeleafTemplateEngine;
@@ -25,6 +27,9 @@ public class SmoothieMain {
 
         RaakaAineDao raakaAineDao = new RaakaAineDao(database);
         AnnosDao annosDao = new AnnosDao(database);
+        
+        List<RaakaAineDao> raakaAineet = new ArrayList<>();
+        List<AnnosDao> annokset = new ArrayList<>();
         
         get("/", (req, res) -> {
             HashMap map = new HashMap<>();
