@@ -15,6 +15,7 @@ import tikape.runko.database.AnnosDao;
 import tikape.runko.database.Database;
 import tikape.runko.database.RaakaAineDao;
 import tikape.runko.domain.Annos;
+import tikape.runko.domain.RaakaAine;
 
 /**
  *
@@ -29,7 +30,7 @@ public class SmoothieMain {
         RaakaAineDao raakaAineDao = new RaakaAineDao(database);
         AnnosDao annosDao = new AnnosDao(database);
         
-        List<RaakaAineDao> raakaAineet = new ArrayList<>();
+        List<RaakaAine> raakaAineet = raakaAineDao.findAll();
         List<Annos> annokset = annosDao.findAll();
         
         get("/", (req, res) -> {
@@ -39,12 +40,12 @@ public class SmoothieMain {
             return new ModelAndView(map, "smoothieindeksi");
         }, new ThymeleafTemplateEngine());
         
-//        get("/smoothiet", (req, res) -> {
-//            HashMap map = new HashMap<>();
-//            map.put("smoothiet", AnnosDao.findAll());
-//
-//            return new ModelAndView(map, "smoothiet");
-//        }, new ThymeleafTemplateEngine());
+        get("/smoothiet", (req, res) -> {
+            HashMap map = new HashMap<>();
+            //map.put("");
+
+            return new ModelAndView(map, "Annos");
+        }, new ThymeleafTemplateEngine());
 //        
 //        get("/ainekset", (req, res) -> {
 //            HashMap map = new HashMap<>();
