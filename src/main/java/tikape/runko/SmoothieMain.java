@@ -36,14 +36,14 @@ public class SmoothieMain {
             HashMap map = new HashMap<>();
             map.put("annokset", annosDao.findAll());
 
-            return new ModelAndView(map, "smoothieindeksi");
+            return new ModelAndView(map, "smoothieindex");
         }, new ThymeleafTemplateEngine());
         
         Spark.get("/smoothiet/:id", (req, res) -> {
             HashMap map = new HashMap<>();
             
 //            res.redirect("/");
-            return new ModelAndView(map, "Annos");
+            return new ModelAndView(map, "annos");
         });
         
 //        get("/smoothiet", (req, res) -> {
