@@ -31,18 +31,17 @@ public class SmoothieMain {
         AnnosDao annosDao = new AnnosDao(database);
         
         List<RaakaAine> raakaAineet = raakaAineDao.findAll();
-        List<Annos> annokset = annosDao.findAll();
         
         get("/", (req, res) -> {
             HashMap map = new HashMap<>();
-            map.put("annos", annokset);
+            map.put("annokset", annosDao.findAll());
 
             return new ModelAndView(map, "smoothieindeksi");
         }, new ThymeleafTemplateEngine());
         
         get("/smoothiet", (req, res) -> {
             HashMap map = new HashMap<>();
-            //map.put("");
+            map.put("Annostesti", raakaAineDao.findAll());
 
             return new ModelAndView(map, "Annos");
         }, new ThymeleafTemplateEngine());

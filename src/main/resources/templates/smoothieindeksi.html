@@ -15,8 +15,8 @@ and open the template in the editor.
         <h2>Smoothielista</h2>
 
         <ul>
-            <li th:each="annos : ${annokset}">
-                <span th:text="${annos}">Annoksen nimi</span>
+            <li th:each="annos: ${annokset}">
+                <span th:text="${annos.nimi}">Annoksen nimi</span>
             </li>
         </ul>
         
