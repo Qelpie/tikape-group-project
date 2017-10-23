@@ -14,10 +14,55 @@ and open the template in the editor.
         <h2>Smoothiet</h2>
         
         <ul>
+            <li th:each="annos: ${annokset}">
+                <a th:text="${annos.nimi}">Annoksen nimi</a> 
+            </li>
+        </ul>
+        
+        
+        <ul>
             <li th:each="raakaAine : ${ainekset}">
                 <span th:text="${raakaAine.nimi}">raakaAine</span>
             </li>
         </ul>
         
+        <h4>Lisää uusi</h4>
+  
+        <form method="POST" action="">
+            Smoothien nimi:<br/>
+            <input type="text" name="aine"/><br/>
+            <input type="submit" value="Lisää"/>
+        </form>
+        
+        <h4>Lisää raaka-aineita</h4>
+        
+        <form method="POST" action="">
+            Smoothien nimi:<br/>
+            <select name="smoothie">
+                
+            </select>
+            <br/>
+            Lisättävä raaka-aine<br/>
+            <select name="raakaAine">
+                
+            </select>
+            <br/>
+            Järjestys<br/>
+            <input type="text"/><br/>
+            Määrä<br/>
+            <input type="text"/><br/>
+            Ohje<br/>
+            <input type="text"/><br/>
+            <input type="submit" value="Lisää"/>
+        </form>  
+        
+           
+        <ul>
+            <li>
+                <a href="/">Smoothielistaukseen</a>
+            </li>
+        </ul>
+        
+            
     </body>
 </html>

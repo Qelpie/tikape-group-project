@@ -72,5 +72,7 @@ public class SmoothieMain {
             
             return new ModelAndView(map, "annos");
         },  new ThymeleafTemplateEngine());
+        
+        
     }
 }
