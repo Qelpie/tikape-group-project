@@ -37,10 +37,24 @@ public class SmoothieMain {
             HashMap map = new HashMap<>();
             map.put("annokset", annosDao.findAll());
 
-            return new ModelAndView(map, "smoothieindex");
+            return new ModelAndView(map, "index");
         }, new ThymeleafTemplateEngine());
         
-        // For spesific Annos, specific id:
+        Spark.get("/smoothiet", (req, res) -> {
+            HashMap map = new HashMap<>();
+            map.put("ainekset", raakaAineDao.findAll());
+
+            return new ModelAndView(map, "smoothiet");
+        }, new ThymeleafTemplateEngine());
+        
+        Spark.get("/ainekset", (req, res) -> {
+            HashMap map = new HashMap<>();
+            map.put("ainekset", raakaAineDao.findAll());
+
+            return new ModelAndView(map, "ainekset");
+        }, new ThymeleafTemplateEngine());
+        
+        // Create spesific Annos:
         Spark.get("/smoothiet/:id", (req, res) -> {
             HashMap map = new HashMap<>();
             
@@ -54,7 +68,7 @@ public class SmoothieMain {
             map.put("annosId", annosId);
             map.put("annos", annos);
             map.put("raakaAineet", raakaAineet);
-            map.put("annosRaakaAine", annosRaakaAine.findOne(annosId));
+            map.put("annosRaakaAineet", annosRaakaAine.findAnnokseenLiittyvat(annosId));
             
             return new ModelAndView(map, "annos");
         },  new ThymeleafTemplateEngine());

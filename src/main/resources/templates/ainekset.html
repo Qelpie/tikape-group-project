@@ -6,7 +6,7 @@ and open the template in the editor.
 -->
 <html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
     <head>
-        <title>TODO supply a title</title>
+        <title>Raaka-aineet</title>
         <meta charset="UTF-8"/>
         <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
     </head>
@@ -15,21 +15,23 @@ and open the template in the editor.
         <h2>Raaka-aineet</h2>
         
         <ul>
-            <li th:each="raakaAine : ${raakaAine}">
+            <li th:each="raakaAine : ${ainekset}">
                 <span th:text="${raakaAine.nimi}">raakaAine</span>
             </li>
         </ul>
         
-        <p>Lisää uusi raaka-aine</p>
+        <p><b>Lisää uusi raaka-aine</b></p>
         
-        <form method="POST" action="">
+        <form method="POST" action="Add">
             Raaka-aineen nimi:<br/>
             <input type="text" name="aine"/><br/>
             <input type="submit" value="Lisää"/>
         </form>
         
-        
-        <p><a href="/smoothieindeksi">Smoothielistaukseen</a></p>
-        
+        <ul>
+            <li>
+                <a href="/">Smoothielistaukseen</a>
+            </li>
+        </ul>
     </body>
 </html>

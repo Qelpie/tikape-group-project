@@ -11,14 +11,9 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
-import tikape.runko.domain.Annos;
 import tikape.runko.domain.AnnosRaakaAine;
-import tikape.runko.domain.RaakaAine;
 
-/**
- *
- * @author katri
- */
+
 public class AnnosRaakaAineDao implements Dao<AnnosRaakaAine, Integer> {
     private Database database;
 
@@ -69,5 +64,33 @@ public class AnnosRaakaAineDao implements Dao<AnnosRaakaAine, Integer> {
     @Override
     public void addOne(String s) throws SQLException {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
+    
+    // Etsi annos_id:tä vastaavat annosRaakaAineet:
+    public List<AnnosRaakaAine> findAnnokseenLiittyvat(Integer annosId) throws SQLException {
+        List<AnnosRaakaAine> annosRaakaAineet = new ArrayList<>();
+        Connection connection = database.getConnection();
+        
+        // Find all annosRaakaAine where annos_id == annosId:
+        PreparedStatement stmt = connection.prepareStatement("SELECT id, jarjestys, maara, ohje, raaka_aine_id FROM AnnosRaakaAine WHERE annos_id = ?");
+        stmt.setInt(1, annosId);
+        ResultSet rs = stmt.executeQuery();
+        
+        // Add annosRaakaAineet to a list:
+        while (rs.next()) {
+            Integer id = rs.getInt("id");
+            Integer raakaAineId = rs.getInt("raaka_aine_id");
+            Integer jarjestys = rs.getInt("jarjestys");
+            Integer maara = rs.getInt("maara");
+            String ohje = rs.getString("ohje");
+            
+            annosRaakaAineet.add(new AnnosRaakaAine(id, annosId, raakaAineId, jarjestys, maara, ohje));
+        }
+        
+        rs.close();
+        stmt.close();
+        connection.close();
+            
+        return annosRaakaAineet;
     }
 }

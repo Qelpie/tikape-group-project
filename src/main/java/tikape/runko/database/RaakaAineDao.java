@@ -13,10 +13,6 @@ import java.util.ArrayList;
 import java.util.List;
 import tikape.runko.domain.RaakaAine;
 
-/**
- *
- * @author katri
- */
 public class RaakaAineDao implements Dao<RaakaAine, Integer>{
     
     private Database database;
@@ -110,9 +106,12 @@ public class RaakaAineDao implements Dao<RaakaAine, Integer>{
             while(result.next()) {
                 raakaAineet.add(new RaakaAine(result.getInt("id"), result.getString("nimi")));
             }
+            
+            result.close();
+            st.close();
+            conn.close();
         }
-                        
-
+        
         return raakaAineet;
     }
 

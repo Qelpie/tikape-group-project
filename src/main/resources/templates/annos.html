@@ -14,10 +14,9 @@ and open the template in the editor.xmlns="http://www.w3.org/1999/xhtml" xmlns:t
         
         <ul>
             <li th:each="raakaAine:${raakaAineet}">
-                <span th:text="${raakaAine.nimi}">Ainesosan nimi</span>
-            </li>
-            <li>
-                <span th:text="${raakaAine.maara}">Ainesosan maara</span>
+                <span th:each="annosRaakaAine:${annosRaakaAineet}" 
+                      th:if="${annosRaakaAine.raakaAineId} eq ${raakaAine.id}" 
+                      th:text="${raakaAine.nimi} + ', ' + ${annosRaakaAine.maara}">Ainesosan nimi ja määrä</span>
             </li>
         </ul>
         

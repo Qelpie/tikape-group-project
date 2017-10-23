@@ -1,17 +1,36 @@
-<!DOCTYPE html SYSTEM "http://www.thymeleaf.org/dtd/xhtml1-strict-thymeleaf-4.dtd">
+<!DOCTYPE html>
+<!--
+To change this license header, choose License Headers in Project Properties.
+To change this template file, choose Tools | Templates
+and open the template in the editor.
+-->
 <html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
-
     <head>
-        <title>Otsikko</title>
-        <meta charset="utf-8" />
+        <title>Smoothiet</title>
+        <meta charset="UTF-8"/>
+        <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
     </head>
-
     <body>
-        <h1>Heippa vaan!</h1>
+        
+        <h2>Smoothielista</h2>
 
-        <p>Ja .. <span th:text="${viesti}">jotain?</span></p>
-
-        <p><a href="/opiskelijat">Tästä opiskelijalistaukseen.</a></p>
-        <p><a href="/Annos">Annoksiin</a></p>
+        <ul>
+            <li th:each="annos: ${annokset}">
+                <a th:href="@{~/smoothiet/{id}(id=${annos.id})}">
+                    <span th:text="${annos.nimi}">Annoksen nimi</span>
+                </a>
+            </li>
+        </ul>
+        
+        <ul>
+            <li>
+                <a href ="/smoothiet">Luo uusi smoothie</a>
+            </li>
+            <li>
+                <a href ="/ainekset">Tarkastele ja lisää aineksia</a>
+            </li>
+        </ul>
+        
+        
     </body>
 </html>
