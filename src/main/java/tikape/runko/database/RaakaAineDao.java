@@ -93,7 +93,7 @@ public class RaakaAineDao implements Dao<RaakaAine, Integer>{
     }
     
     public List<RaakaAine> findAnnokseenLiittyvat(Integer annosId) throws SQLException {
-        String query = "SELECT RaakaAine.id, RaakaAine.nimi FROM RaakaAine, AnnosRaakaAine\n"
+        String query = "SELECT RaakaAine.id, RaakaAine.nimi FROM RaakaAine, AnnosRaakaAine, Annos\n"
                         +"     WHERE RaakaAine.id = AnnosRaakaAine.raaka_aine_id"
                         +"     AND AnnosRaakaAine.annos_id = ?";
         List<RaakaAine> raakaAineet = new ArrayList<>();
