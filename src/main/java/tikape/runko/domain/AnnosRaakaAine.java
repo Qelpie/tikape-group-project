@@ -47,8 +47,8 @@ public class AnnosRaakaAine {
         return ohje;
     }
 
-    public void setMaara(Integer maara_lisays) {
-        this.maara += maara_lisays;
+    public void setMaara(Integer lisays) {
+        this.maara += lisays;
     }
     
     
