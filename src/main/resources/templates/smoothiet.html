@@ -15,14 +15,9 @@ and open the template in the editor.
         
         <ul>
             <li th:each="annos: ${annokset}">
-                <a th:text="${annos.nimi}">Annoksen nimi</a> 
-            </li>
-        </ul>
-        
-        
-        <ul>
-            <li th:each="raakaAine : ${ainekset}">
-                <span th:text="${raakaAine.nimi}">raakaAine</span>
+                <a th:href="@{~/smoothiet/{id}(id=${annos.id})}">
+                    <span th:text="${annos.nimi}">Annoksen nimi</span>
+                </a>
             </li>
         </ul>
         

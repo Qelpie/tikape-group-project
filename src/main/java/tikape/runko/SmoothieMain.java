@@ -42,6 +42,7 @@ public class SmoothieMain {
         
         Spark.get("/smoothiet", (req, res) -> {
             HashMap map = new HashMap<>();
+            map.put("annokset", annosDao.findAll());
             map.put("ainekset", raakaAineDao.findAll());
 
             return new ModelAndView(map, "smoothiet");
