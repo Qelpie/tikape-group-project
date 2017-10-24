@@ -109,12 +109,13 @@ public class SmoothieMain {
         Spark.post("/ainekset", (req, res) -> {
             RaakaAine r = new RaakaAine(-1, req.queryParams("nimi"));
             raakaAineDao.saveOrUpdate(r);
+            
             res.redirect("/ainekset");
             return "";
         });
         
         // Add new Smoothie: Annos
-        Spark.post("/smoothiet", (req, res) -> {
+        Spark.post("/smoothiet/annos", (req, res) -> {
             Annos a = new Annos(-1, req.queryParams("nimi"));
             annosDao.saveOrUpdate(a);
             
@@ -123,15 +124,15 @@ public class SmoothieMain {
         });
         
         //Add new Smoothie: relation between Annos and RaakaAineet -> AnnosRaakaAine
-        Spark.post("/smoothiet", (req, res) -> {
-            Integer annosId = Integer.parseInt(req.queryParams("smoothie"));
-            Integer raakaAineId = Integer.parseInt(req.queryParams("raakaAine"));
+        Spark.post("/smoothiet/annosraakaaine", (req, res) -> {
+            Integer annosId = Integer.parseInt(req.queryParams("smoothieId"));
+            Integer raakaAineId = Integer.parseInt(req.queryParams("raakaAineId"));
             
             Integer maara = Integer.parseInt(req.queryParams("maara"));
             Integer jarjestys = Integer.parseInt(req.queryParams("jarjestys"));
             String ohje = req.queryParams("ohje");
             
-            AnnosRaakaAine ara = new AnnosRaakaAine(-2 ,annosId, raakaAineId, jarjestys, maara, ohje);
+            AnnosRaakaAine ara = new AnnosRaakaAine(-1 ,annosId, raakaAineId, jarjestys, maara, ohje);
             annosRaakaAineDao.saveOrUpdate(ara);
            
             res.redirect("/smoothiet");
