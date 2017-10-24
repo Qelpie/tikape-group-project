@@ -73,6 +73,11 @@ public class SmoothieMain {
             return new ModelAndView(map, "annos");
         },  new ThymeleafTemplateEngine());
         
-        
+        Spark.post("/ainekset", (req, res) -> {
+            RaakaAine r = new RaakaAine(-1, req.queryParams("aine"));
+            raakaAineDao.saveOrUpdate(r);
+            res.redirect("/ainekset");
+            return "";
+        });
     }
 }

@@ -114,5 +114,36 @@ public class RaakaAineDao implements Dao<RaakaAine, Integer>{
         
         return raakaAineet;
     }
+    
+    public RaakaAine saveOrUpdate(RaakaAine object) throws SQLException {
+        RaakaAine ra = findByName(object.getNimi());
+        
+        if (ra != null) {
+            return ra;
+        }
+
+        try (Connection conn = database.getConnection()) {
+            PreparedStatement stmt = conn.prepareStatement("INSERT INTO TASK (nimi) VALUES (?)");
+            stmt.setString(1, object.getNimi());
+            stmt.executeUpdate();
+        }
+
+        return findByName(object.getNimi());
+    }
+    
+    private RaakaAine findByName(String name) throws SQLException {
+        try (Connection conn = database.getConnection()) {
+            PreparedStatement stmt = conn.prepareStatement("SELECT id, nimi FROM RaakaAine WHERE nimi = ?");
+            stmt.setString(1, name);
+
+            ResultSet result = stmt.executeQuery();
+            if (!result.next()) {
+                return null;
+            }
+
+            return new RaakaAine(result.getInt("id"), result.getString("nimi"));
+        }
+    }
+
 
 }
