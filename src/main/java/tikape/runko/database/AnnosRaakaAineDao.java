@@ -124,11 +124,18 @@ public class AnnosRaakaAineDao implements Dao<AnnosRaakaAine, Integer> {
     }
     
     public AnnosRaakaAine saveOrUpdate(AnnosRaakaAine object) throws SQLException {
+        AnnosRaakaAine ar = findByAnnosId(object.getAnnosId());
+        
+        if (ar != null) {
+            return ar;
+        }
+        
         try (Connection conn = database.getConnection()) {
             PreparedStatement st = conn.prepareStatement(
                     "INSERT INTO AnnosRaakaAine (jarjestys, maara, ohje, raaka_aine_id, annos_id) "
                             + " VALUES (?, ?, ?, ?, ?)"
             );
+            
             st.setInt(1, object.getJarjestys());
             st.setInt(2, object.getMaara());
             st.setString(3, object.getOhje());
@@ -140,7 +147,21 @@ public class AnnosRaakaAineDao implements Dao<AnnosRaakaAine, Integer> {
             conn.close();
         }
         
-        
-        return null;
+        return findByAnnosId(object.getAnnosId());
+    }
+
+    public AnnosRaakaAine findByAnnosId(Integer annosId) throws SQLException {
+        try (Connection conn = database.getConnection()) {
+            PreparedStatement stmt = conn.prepareStatement("SELECT id, jarjestys, maara, ohje, raaka_aine_id, annos_id FROM AnnosRaakaAine WHERE annos_id = ?");
+            stmt.setInt(1, annosId);
+            
+            ResultSet rs = stmt.executeQuery();
+            
+            if(!rs.next()) {
+                return null;
+            }
+            
+            return new AnnosRaakaAine(rs.getInt("id"), rs.getInt("annos_id"), rs.getInt("raaka_aine_id"), rs.getInt("jarjestys"), rs.getInt("maara"), rs.getString("ohje"));
+        }
     }
 }

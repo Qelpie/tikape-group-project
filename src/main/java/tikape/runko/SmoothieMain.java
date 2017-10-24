@@ -61,6 +61,7 @@ public class SmoothieMain {
             Integer id = Integer.parseInt(req.params(":id"));
             RaakaAine r = raakaAineDao.findOne(id);
             
+            // Delete raakaAine and its relations:
             raakaAineDao.delete(id);
             annosRaakaAineDao.deleteRaakaAine(id);
             
@@ -75,6 +76,7 @@ public class SmoothieMain {
             Integer id = Integer.parseInt(req.params(":id"));
             Annos a = annosDao.findOne(id);
             
+            // Delete Annos and its relations.
             annosDao.delete(id);
             annosRaakaAineDao.deleteAnnos(id);
             
@@ -89,7 +91,7 @@ public class SmoothieMain {
         Spark.get("/smoothiet/:id", (req, res) -> {
             HashMap map = new HashMap<>();
             
-            // Define Annos and its' id:
+            // Define Annos and its id:
             Integer annosId = Integer.parseInt(req.params(":id"));
             Annos annos = annosDao.findOne(annosId);
             
@@ -111,24 +113,28 @@ public class SmoothieMain {
             return "";
         });
         
+        // Add new Smoothie: Annos
         Spark.post("/smoothiet", (req, res) -> {
             Annos a = new Annos(-1, req.queryParams("nimi"));
             annosDao.saveOrUpdate(a);
+            
             res.redirect("/smoothiet");
             return "";
         });
         
+        //Add new Smoothie: relation between Annos and RaakaAineet -> AnnosRaakaAine
         Spark.post("/smoothiet", (req, res) -> {
-            Integer smoothieId = Integer.parseInt(req.queryParams("smoothie"));
+            Integer annosId = Integer.parseInt(req.queryParams("smoothie"));
             Integer raakaAineId = Integer.parseInt(req.queryParams("raakaAine"));
             
             Integer maara = Integer.parseInt(req.queryParams("maara"));
             Integer jarjestys = Integer.parseInt(req.queryParams("jarjestys"));
             String ohje = req.queryParams("ohje");
             
-            AnnosRaakaAine ara = new AnnosRaakaAine(-1,smoothieId,raakaAineId,jarjestys,maara,ohje);
-            
-            
+            AnnosRaakaAine ara = new AnnosRaakaAine(-2 ,annosId, raakaAineId, jarjestys, maara, ohje);
+            annosRaakaAineDao.saveOrUpdate(ara);
+           
+            res.redirect("/smoothiet");
             return "";
         });
         
