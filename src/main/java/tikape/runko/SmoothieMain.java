@@ -103,5 +103,14 @@ public class SmoothieMain {
             res.redirect("/smoothiet"); //vai smoothiet?
             return "";
         });
+        
+        Spark.post("/smoothiet", (req, res) -> {
+            Annos a = new Annos(-1, req.queryParams("nimi"));
+            annosDao.saveOrUpdate(a);
+            res.redirect("/smoothiet");
+            return "";
+        });
+        
+        
     }
 }

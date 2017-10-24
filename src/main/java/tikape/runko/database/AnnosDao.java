@@ -94,5 +94,39 @@ public class AnnosDao implements Dao<Annos, Integer>{
         connection.close();
     }
     
+    private Annos findByName(String name) throws SQLException {
+        try (Connection conn = database.getConnection()) {
+            PreparedStatement stmt = conn.prepareStatement("SELECT id, nimi FROM Annos WHERE nimi = ?");
+            stmt.setString(1, name);
+
+            ResultSet result = stmt.executeQuery();
+            if (!result.next()) {
+                return null;
+            }
+
+            return new Annos(result.getInt("id"), result.getString("nimi"));
+        }
+    }
+    
+    public Annos saveOrUpdate(Annos object) throws SQLException {
+        Annos an = findByName(object.getNimi());
+        
+        if (an != null) {
+            return an;
+        }
+        
+        try (Connection connection = database.getConnection()) {
+            PreparedStatement stmt = connection.prepareStatement("INSERT INTO Annos (nimi) VALUES (?)");
+        
+            stmt.setString(1, object.getNimi());
+            stmt.executeUpdate();
+            stmt.close();
+            connection.close();
+        }
+        
+        return findByName(object.getNimi());
+        
+    }
+    
     
 }
