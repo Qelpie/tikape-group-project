@@ -92,21 +92,21 @@ public class AnnosDao implements Dao<Annos, Integer>{
     }
     
     private Annos findByName(String name) throws SQLException {
-        try (Connection conn = database.getConnection()) {
-            PreparedStatement stmt = conn.prepareStatement("SELECT id, nimi FROM Annos WHERE nimi = ?");
+        try (Connection connection = database.getConnection()) {
+            PreparedStatement stmt = connection.prepareStatement("SELECT id, nimi FROM Annos WHERE nimi = ?");
             stmt.setString(1, name);
 
-            ResultSet result = stmt.executeQuery();
+            ResultSet rs = stmt.executeQuery();
             
-            if (!result.next()) {
+            if (!rs.next()) {
                 return null;
             }
             
-            Integer id = result.getInt("id");
-            String nimi = result.getString("nimi");
+            Integer id = rs.getInt("id");
+            String nimi = rs.getString("nimi");
             
-            result.close();
-            conn.close();
+            rs.close();
+            connection.close();
 
             return new Annos(id, nimi);
         }

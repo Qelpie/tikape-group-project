@@ -129,21 +129,21 @@ public class AnnosRaakaAineDao implements Dao<AnnosRaakaAine, Integer> {
         if (ar != null) {
             return ar;
         }
-            try (Connection conn = database.getConnection()) {
-                PreparedStatement st = conn.prepareStatement(
+            try (Connection connection = database.getConnection()) {
+                PreparedStatement stmt = connection.prepareStatement(
                         "INSERT INTO AnnosRaakaAine (jarjestys, maara, ohje, raaka_aine_id, annos_id) "
                         + " VALUES (?, ?, ?, ?, ?)"
                 );
 
-                st.setInt(1, object.getJarjestys());
-                st.setInt(2, object.getMaara());
-                st.setString(3, object.getOhje());
-                st.setInt(4, object.getRaakaAineId());
-                st.setInt(5, object.getAnnosId());
+                stmt.setInt(1, object.getJarjestys());
+                stmt.setInt(2, object.getMaara());
+                stmt.setString(3, object.getOhje());
+                stmt.setInt(4, object.getRaakaAineId());
+                stmt.setInt(5, object.getAnnosId());
 
-                st.executeUpdate();
-                st.close();
-                conn.close();
+                stmt.executeUpdate();
+                stmt.close();
+                connection.close();
             
         }
 
@@ -151,8 +151,8 @@ public class AnnosRaakaAineDao implements Dao<AnnosRaakaAine, Integer> {
     }
 
     public AnnosRaakaAine findByAnnosIdRaakaAineId(Integer annosId, Integer raakaAineId) throws SQLException {
-        try (Connection conn = database.getConnection()) {
-            PreparedStatement stmt = conn.prepareStatement("SELECT id, jarjestys, maara, ohje, raaka_aine_id, annos_id FROM AnnosRaakaAine WHERE annos_id = ? AND raaka_aine_id = ?");
+        try (Connection connection = database.getConnection()) {
+            PreparedStatement stmt = connection.prepareStatement("SELECT id, jarjestys, maara, ohje, raaka_aine_id, annos_id FROM AnnosRaakaAine WHERE annos_id = ? AND raaka_aine_id = ?");
 
             stmt.setInt(1, annosId);
             stmt.setInt(1, raakaAineId);
@@ -172,7 +172,7 @@ public class AnnosRaakaAineDao implements Dao<AnnosRaakaAine, Integer> {
 
             stmt.close();
             rs.close();
-            conn.close();
+            connection.close();
 
             return new AnnosRaakaAine(id, annos_id, raaka_aine_id, jarjestys, maara, ohje);
         }

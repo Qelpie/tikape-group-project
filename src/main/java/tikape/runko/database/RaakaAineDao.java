@@ -99,18 +99,18 @@ public class RaakaAineDao implements Dao<RaakaAine, Integer>{
                         +"     AND Annos.id = ?";
         List<RaakaAine> raakaAineet = new ArrayList<>();
         
-        try (Connection conn = database.getConnection()) {
-            PreparedStatement st = conn.prepareStatement(query);
-            st.setInt(1, annosId);
-            ResultSet result = st.executeQuery();
+        try (Connection connection = database.getConnection()) {
+            PreparedStatement stmt = connection.prepareStatement(query);
+            stmt.setInt(1, annosId);
+            ResultSet rs = stmt.executeQuery();
             
-            while(result.next()) {
-                raakaAineet.add(new RaakaAine(result.getInt("id"), result.getString("nimi")));
+            while(rs.next()) {
+                raakaAineet.add(new RaakaAine(rs.getInt("id"), rs.getString("nimi")));
             }
             
-            result.close();
-            st.close();
-            conn.close();
+            rs.close();
+            stmt.close();
+            connection.close();
         }
         
         return raakaAineet;
@@ -123,34 +123,34 @@ public class RaakaAineDao implements Dao<RaakaAine, Integer>{
             return ra;
         }
 
-        try (Connection conn = database.getConnection()) {
-            PreparedStatement stmt = conn.prepareStatement("INSERT INTO RaakaAine (nimi) VALUES (?)");
+        try (Connection connection = database.getConnection()) {
+            PreparedStatement stmt = connection.prepareStatement("INSERT INTO RaakaAine (nimi) VALUES (?)");
             stmt.setString(1, object.getNimi());
             stmt.executeUpdate();
             
             stmt.close();
-            conn.close();
+            connection.close();
         }
 
         return findByName(object.getNimi());
     }
     
     private RaakaAine findByName(String name) throws SQLException {
-        try (Connection conn = database.getConnection()) {
-            PreparedStatement stmt = conn.prepareStatement("SELECT id, nimi FROM RaakaAine WHERE nimi = ?");
+        try (Connection connection = database.getConnection()) {
+            PreparedStatement stmt = connection.prepareStatement("SELECT id, nimi FROM RaakaAine WHERE nimi = ?");
             stmt.setString(1, name);
 
-            ResultSet result = stmt.executeQuery();
-            if (!result.next()) {
+            ResultSet rs = stmt.executeQuery();
+            if (!rs.next()) {
                 return null;
             }
             
-            Integer id = result.getInt("id");
-            String nimi = result.getString("nimi");
+            Integer id = rs.getInt("id");
+            String nimi = rs.getString("nimi");
             
-            result.close();
+            rs.close();
             stmt.close();
-            conn.close();
+            connection.close();
 
             return new RaakaAine(id, nimi);
         }
