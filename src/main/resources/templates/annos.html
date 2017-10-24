@@ -16,7 +16,7 @@ and open the template in the editor.xmlns="http://www.w3.org/1999/xhtml" xmlns:t
             <li th:each="raakaAine:${raakaAineet}">
                 <span th:each="annosRaakaAine:${annosRaakaAineet}" 
                       th:if="${annosRaakaAine.raakaAineId} eq ${raakaAine.id}" 
-                      th:text="${raakaAine.nimi} + ', ' + ${annosRaakaAine.maara} + ' ' + ${annosRaakaAine.ohje}">Ainesosan nimi ja määrä ja ohje</span>
+                      th:text="${raakaAine.nimi} + ', ' + ${annosRaakaAine.maara} + ' ' + ${annosRaakaAine.ohje}">Ainesosan nimi,määrä ja ohje</span>
             </li>
         </ul>
         
