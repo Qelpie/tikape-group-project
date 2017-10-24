@@ -15,10 +15,10 @@ and open the template in the editor.
         
         <ul>
             <li th:each="annos: ${annokset}">
-                <a th:href="@{~/smoothiet/{id}(id=${annos.id})}">
-                    <span th:text="${annos.nimi}">Annoksen nimi</span>
+                <div>
+                    <span th:text="${annos.nimi}">Annos</span>
                     <a th:href="@{~/smoothiet/{id}/poista(id=${annos.id})}">(poista)</a>
-                </a>
+                </div>
             </li>
         </ul>
         
