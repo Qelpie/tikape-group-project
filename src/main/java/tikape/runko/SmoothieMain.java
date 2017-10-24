@@ -74,7 +74,7 @@ public class SmoothieMain {
         },  new ThymeleafTemplateEngine());
         
         Spark.post("/ainekset", (req, res) -> {
-            RaakaAine r = new RaakaAine(-1, req.queryParams("aine"));
+            RaakaAine r = new RaakaAine(-1, req.queryParams("nimi"));
             raakaAineDao.saveOrUpdate(r);
             res.redirect("/ainekset");
             return "";

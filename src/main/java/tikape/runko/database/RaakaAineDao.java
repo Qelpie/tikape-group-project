@@ -123,7 +123,7 @@ public class RaakaAineDao implements Dao<RaakaAine, Integer>{
         }
 
         try (Connection conn = database.getConnection()) {
-            PreparedStatement stmt = conn.prepareStatement("INSERT INTO TASK (nimi) VALUES (?)");
+            PreparedStatement stmt = conn.prepareStatement("INSERT INTO RaakaAine (nimi) VALUES (?)");
             stmt.setString(1, object.getNimi());
             stmt.executeUpdate();
         }
