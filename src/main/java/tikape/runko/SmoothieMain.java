@@ -17,6 +17,7 @@ import tikape.runko.domain.Annos;
 import tikape.runko.domain.RaakaAine;
 import org.thymeleaf.context.Context;
 import tikape.runko.database.AnnosRaakaAineDao;
+import tikape.runko.domain.AnnosRaakaAine;
 
 /**
  *
@@ -110,10 +111,40 @@ public class SmoothieMain {
             return "";
         });
         
+<<<<<<< HEAD
+=======
+        Spark.post("/ainekset/:id/poista", (req, res) -> {
+            raakaAineDao.delete(Integer.parseInt(req.params(":id")));
+            res.redirect("/ainekset"); //vai smoothiet?
+            return "";
+        });
+        
+        Spark.post("smoothiet/:id/poista", (req, res) -> {
+//            RaakaAine r = new RaakaAine(-1, req.queryParams("nimi"));
+//            raakaAineDao.saveOrUpdate(r);
+            res.redirect("/smoothiet"); //vai smoothiet?
+            return "";
+        });
+        
+>>>>>>> f7cc83b73df0d2e349f3a97238e14fbaa8f8117f
         Spark.post("/smoothiet", (req, res) -> {
             Annos a = new Annos(-1, req.queryParams("nimi"));
             annosDao.saveOrUpdate(a);
             res.redirect("/smoothiet");
+            return "";
+        });
+        
+        Spark.post("/smoothiet", (req, res) -> {
+            Integer smoothieId = Integer.parseInt(req.queryParams("smoothie"));
+            Integer raakaAineId = Integer.parseInt(req.queryParams("raakaAine"));
+            
+            Integer maara = Integer.parseInt(req.queryParams("maara"));
+            Integer jarjestys = Integer.parseInt(req.queryParams("jarjestys"));
+            String ohje = req.queryParams("ohje");
+            
+            AnnosRaakaAine ara = new AnnosRaakaAine(-1,smoothieId,raakaAineId,jarjestys,maara,ohje);
+            
+            
             return "";
         });
         

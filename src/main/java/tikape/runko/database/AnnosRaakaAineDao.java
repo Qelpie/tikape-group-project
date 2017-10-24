@@ -122,4 +122,25 @@ public class AnnosRaakaAineDao implements Dao<AnnosRaakaAine, Integer> {
             
         return annosRaakaAineet;
     }
+    
+    public AnnosRaakaAine saveOrUpdate(AnnosRaakaAine object) throws SQLException {
+        try (Connection conn = database.getConnection()) {
+            PreparedStatement st = conn.prepareStatement(
+                    "INSERT INTO AnnosRaakaAine (jarjestys, maara, ohje, raaka_aine_id, annos_id) "
+                            + " VALUES (?, ?, ?, ?, ?)"
+            );
+            st.setInt(1, object.getJarjestys());
+            st.setInt(2, object.getMaara());
+            st.setString(3, object.getOhje());
+            st.setInt(4, object.getRaakaAineId());
+            st.setInt(5, object.getAnnosId());
+            
+            st.executeUpdate();
+            st.close();
+            conn.close();
+        }
+        
+        
+        return null;
+    }
 }

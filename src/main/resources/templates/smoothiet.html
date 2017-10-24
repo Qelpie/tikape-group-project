@@ -17,6 +17,7 @@ and open the template in the editor.
             <li th:each="annos: ${annokset}">
                 <a th:href="@{~/smoothiet/{id}(id=${annos.id})}">
                     <span th:text="${annos.nimi}">Annoksen nimi</span>
+                    <a th:href="@{~/smoothiet/{id}/poista(id=${annos.id})}">(poista)</a>
                 </a>
             </li>
         </ul>
@@ -29,26 +30,30 @@ and open the template in the editor.
             <input type="submit" value="Lisaa"/>
         </form>
         
-        <h4>Lisää raaka-aineita</h4>
+        <h4>Lisaa raaka-aineita</h4>
         
         <form method="POST" action="">
             Smoothien nimi:<br/>
             <select name="smoothie">
-                
+                <option th:each="annos: ${annokset}" th:value="${annos.id}" th:text="${annos.nimi}">
+                    smoothie
+                </option> 
             </select>
             <br/>
-            Lisättävä raaka-aine<br/>
+            Lisattava raaka-aine<br/>
             <select name="raakaAine">
-                
+                <option th:each="raakaAine: ${ainekset}" th:value="${raakaAine.id}" th:text="${raakaAine.nimi}">
+                    raakaAine
+                </option>
             </select>
             <br/>
-            Järjestys<br/>
-            <input type="text"/><br/>
-            Määrä<br/>
-            <input type="text"/><br/>
+            Jarjestys<br/>
+            <input type="text" name="jarjestys"/><br/>
+            Maara<br/>
+            <input type="text" name="maara"/><br/>
             Ohje<br/>
-            <input type="text"/><br/>
-            <input type="submit" value="Lisää"/>
+            <input type="text" name="ohje"/><br/>
+            <input type="submit" value="Lisaa"/>
         </form>  
         
            
