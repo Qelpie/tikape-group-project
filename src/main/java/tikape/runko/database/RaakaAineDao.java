@@ -104,7 +104,16 @@ public class RaakaAineDao implements Dao<RaakaAine, Integer>{
             ResultSet result = st.executeQuery();
             
             while(result.next()) {
-                raakaAineet.add(new RaakaAine(result.getInt("id"), result.getString("nimi")));
+                int k = 0;
+                for (int i = 0; i < raakaAineet.size();i++) {
+                    if (raakaAineet.get(i).getNimi().equals(result.getString("nimi"))) {
+                        k = 1;
+                    }
+                }
+                if (k == 0) {
+                    raakaAineet.add(new RaakaAine(result.getInt("id"), result.getString("nimi")));
+                }
+                
             }
             
             result.close();

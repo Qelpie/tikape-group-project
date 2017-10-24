@@ -120,8 +120,7 @@ public class AnnosDao implements Dao<Annos, Integer>{
         
             stmt.setString(1, object.getNimi());
             stmt.executeUpdate();
-            stmt.close();
-            connection.close();
+            
         }
         
         return findByName(object.getNimi());
