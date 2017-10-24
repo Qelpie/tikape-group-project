@@ -12,9 +12,6 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 import tikape.runko.domain.Annos;
-/***
- *
- * @author katri*/
 
 public class AnnosDao implements Dao<Annos, Integer>{
     
@@ -103,6 +100,9 @@ public class AnnosDao implements Dao<Annos, Integer>{
             if (!result.next()) {
                 return null;
             }
+            
+            result.close();
+            conn.close();
 
             return new Annos(result.getInt("id"), result.getString("nimi"));
         }
@@ -121,11 +121,10 @@ public class AnnosDao implements Dao<Annos, Integer>{
             stmt.setString(1, object.getNimi());
             stmt.executeUpdate();
             
+            stmt.close();
+            connection.close();
         }
         
         return findByName(object.getNimi());
-        
     }
-    
-    
 }

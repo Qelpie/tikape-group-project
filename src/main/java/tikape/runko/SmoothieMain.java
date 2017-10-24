@@ -19,10 +19,6 @@ import org.thymeleaf.context.Context;
 import tikape.runko.database.AnnosRaakaAineDao;
 import tikape.runko.domain.AnnosRaakaAine;
 
-/**
- *
- * @author haii
- */
 public class SmoothieMain {
     
     public static void main(String[] args) throws Exception {
@@ -138,7 +134,5 @@ public class SmoothieMain {
             res.redirect("/smoothiet");
             return "";
         });
-        
-        
     }
 }

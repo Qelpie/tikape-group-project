@@ -127,7 +127,11 @@ public class RaakaAineDao implements Dao<RaakaAine, Integer>{
             PreparedStatement stmt = conn.prepareStatement("INSERT INTO RaakaAine (nimi) VALUES (?)");
             stmt.setString(1, object.getNimi());
             stmt.executeUpdate();
+            
+            stmt.close();
+            conn.close();
         }
+        
 
         return findByName(object.getNimi());
     }
@@ -141,6 +145,10 @@ public class RaakaAineDao implements Dao<RaakaAine, Integer>{
             if (!result.next()) {
                 return null;
             }
+            
+            result.close();
+            stmt.close();
+            conn.close();
 
             return new RaakaAine(result.getInt("id"), result.getString("nimi"));
         }

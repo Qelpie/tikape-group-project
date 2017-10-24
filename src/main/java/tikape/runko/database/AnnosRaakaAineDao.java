@@ -13,7 +13,6 @@ import java.util.ArrayList;
 import java.util.List;
 import tikape.runko.domain.AnnosRaakaAine;
 
-
 public class AnnosRaakaAineDao implements Dao<AnnosRaakaAine, Integer> {
     private Database database;
 
@@ -160,6 +159,10 @@ public class AnnosRaakaAineDao implements Dao<AnnosRaakaAine, Integer> {
             if(!rs.next()) {
                 return null;
             }
+            
+            stmt.close();
+            rs.close();
+            conn.close();
             
             return new AnnosRaakaAine(rs.getInt("id"), rs.getInt("annos_id"), rs.getInt("raaka_aine_id"), rs.getInt("jarjestys"), rs.getInt("maara"), rs.getString("ohje"));
         }
