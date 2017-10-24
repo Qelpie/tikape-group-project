@@ -73,13 +73,13 @@ public class SmoothieMain {
         Spark.get("/smoothiet/:id/poista", (req, res) -> {
             HashMap map = new HashMap<>();
             Integer id = Integer.parseInt(req.params(":id"));
-            Annos r = annosDao.findOne(id);
+            Annos a = annosDao.findOne(id);
             
             annosDao.delete(id);
             annosRaakaAineDao.deleteAnnos(id);
             
             map.put("id", id);
-            map.put("poistettu", r.getNimi());
+            map.put("poistettu", a.getNimi());
                     
             return new ModelAndView(map, "poista");
         }, new ThymeleafTemplateEngine());
