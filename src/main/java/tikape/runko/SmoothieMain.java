@@ -15,7 +15,6 @@ import tikape.runko.database.Database;
 import tikape.runko.database.RaakaAineDao;
 import tikape.runko.domain.Annos;
 import tikape.runko.domain.RaakaAine;
-import org.thymeleaf.context.Context;
 import tikape.runko.database.AnnosRaakaAineDao;
 import tikape.runko.domain.AnnosRaakaAine;
 
@@ -119,7 +118,7 @@ public class SmoothieMain {
             return "";
         });
         
-        //Add new Smoothie: relation between Annos and RaakaAineet -> AnnosRaakaAine
+        // Add new Smoothie: relation between Annos and RaakaAineet -> AnnosRaakaAine
         Spark.post("/smoothiet/annosraakaaine", (req, res) -> {
             Integer annosId = Integer.parseInt(req.queryParams("smoothieId"));
             Integer raakaAineId = Integer.parseInt(req.queryParams("raakaAineId"));

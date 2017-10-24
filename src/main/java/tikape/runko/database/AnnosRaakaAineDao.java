@@ -123,7 +123,7 @@ public class AnnosRaakaAineDao implements Dao<AnnosRaakaAine, Integer> {
     }
     
     public AnnosRaakaAine saveOrUpdate(AnnosRaakaAine object) throws SQLException {
-        AnnosRaakaAine ar = findByAnnosId(object.getAnnosId());
+        AnnosRaakaAine ar = findByAnnosIdRaakaAineId(object.getAnnosId(), object.getRaakaAineId());
         
         if (ar != null) {
             return ar;
@@ -146,13 +146,15 @@ public class AnnosRaakaAineDao implements Dao<AnnosRaakaAine, Integer> {
             conn.close();
         }
         
-        return findByAnnosId(object.getAnnosId());
+        return findByAnnosIdRaakaAineId(object.getAnnosId(), object.getRaakaAineId());
     }
 
-    public AnnosRaakaAine findByAnnosId(Integer annosId) throws SQLException {
+    public AnnosRaakaAine findByAnnosIdRaakaAineId(Integer annosId, Integer raakaAineId) throws SQLException {
         try (Connection conn = database.getConnection()) {
-            PreparedStatement stmt = conn.prepareStatement("SELECT id, jarjestys, maara, ohje, raaka_aine_id, annos_id FROM AnnosRaakaAine WHERE annos_id = ?");
+            PreparedStatement stmt = conn.prepareStatement("SELECT id, jarjestys, maara, ohje, raaka_aine_id, annos_id FROM AnnosRaakaAine WHERE annos_id = ? AND raaka_aine_id = ?");
+            
             stmt.setInt(1, annosId);
+            stmt.setInt(1, raakaAineId);
             
             ResultSet rs = stmt.executeQuery();
             
