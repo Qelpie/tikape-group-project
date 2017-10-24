@@ -91,10 +91,16 @@ public class SmoothieMain {
             return "";
         });
         
-        Spark.post("/poista", (req, res) -> {
+        Spark.post("ainekset/:id/poista", (req, res) -> {
+            raakaAineDao.delete(Integer.parseInt(req.params(":id")));
+            res.redirect("/ainekset"); //vai smoothiet?
+            return "";
+        });
+        
+        Spark.post("smoothiet/:id/poista", (req, res) -> {
 //            RaakaAine r = new RaakaAine(-1, req.queryParams("nimi"));
 //            raakaAineDao.saveOrUpdate(r);
-            res.redirect("/ainekset"); //vai smoothiet?
+            res.redirect("/smoothiet"); //vai smoothiet?
             return "";
         });
     }

@@ -71,11 +71,11 @@ public class AnnosDao implements Dao<Annos, Integer>{
     }
     
     @Override
-    public void delete(String nimi) throws SQLException {
+    public void delete(Integer key) throws SQLException {
         Connection connection = database.getConnection();
-        PreparedStatement stmt = connection.prepareStatement("DELETE FROM Annos WHERE nimi = ?");
+        PreparedStatement stmt = connection.prepareStatement("DELETE FROM Annos WHERE id = ?");
         
-        stmt.setString(1, nimi);
+        stmt.setInt(1, key);
         stmt.executeUpdate();
         
         stmt.close();
