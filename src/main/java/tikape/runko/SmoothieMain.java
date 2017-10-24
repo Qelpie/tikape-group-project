@@ -111,22 +111,6 @@ public class SmoothieMain {
             return "";
         });
         
-<<<<<<< HEAD
-=======
-        Spark.post("/ainekset/:id/poista", (req, res) -> {
-            raakaAineDao.delete(Integer.parseInt(req.params(":id")));
-            res.redirect("/ainekset"); //vai smoothiet?
-            return "";
-        });
-        
-        Spark.post("smoothiet/:id/poista", (req, res) -> {
-//            RaakaAine r = new RaakaAine(-1, req.queryParams("nimi"));
-//            raakaAineDao.saveOrUpdate(r);
-            res.redirect("/smoothiet"); //vai smoothiet?
-            return "";
-        });
-        
->>>>>>> f7cc83b73df0d2e349f3a97238e14fbaa8f8117f
         Spark.post("/smoothiet", (req, res) -> {
             Annos a = new Annos(-1, req.queryParams("nimi"));
             annosDao.saveOrUpdate(a);
