@@ -91,7 +91,7 @@ public class SmoothieMain {
             return "";
         });
         
-        Spark.post("ainekset/:id/poista", (req, res) -> {
+        Spark.post("/ainekset/:id/poista", (req, res) -> {
             raakaAineDao.delete(Integer.parseInt(req.params(":id")));
             res.redirect("/ainekset"); //vai smoothiet?
             return "";
