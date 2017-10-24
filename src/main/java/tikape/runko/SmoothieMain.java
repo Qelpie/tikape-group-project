@@ -30,7 +30,7 @@ public class SmoothieMain {
 
         RaakaAineDao raakaAineDao = new RaakaAineDao(database);
         AnnosDao annosDao = new AnnosDao(database);
-        AnnosRaakaAineDao annosRaakaAine = new AnnosRaakaAineDao(database);
+        AnnosRaakaAineDao annosRaakaAineDao = new AnnosRaakaAineDao(database);
         
         // Create index-page:
         Spark.get("/", (req, res) -> {
@@ -55,15 +55,34 @@ public class SmoothieMain {
             return new ModelAndView(map, "ainekset");
         }, new ThymeleafTemplateEngine());
         
-        Spark.get("/:id/poista", (req, res) -> {
+        Spark.get("/ainekset/:id/poista", (req, res) -> {
             HashMap map = new HashMap<>();
             Integer id = Integer.parseInt(req.params(":id"));
+            RaakaAine r = raakaAineDao.findOne(id);
             
-            map.put("annokset", annosDao.findAll());
-            map.put("ainekset", raakaAineDao.findAll());
-
+            raakaAineDao.delete(id);
+            annosRaakaAineDao.deleteRaakaAine(id);
+            
+            map.put("id", id);
+            map.put("poistettu", r.getNimi());
+                    
             return new ModelAndView(map, "poista");
         }, new ThymeleafTemplateEngine());
+        
+        Spark.get("/smoothiet/:id/poista", (req, res) -> {
+            HashMap map = new HashMap<>();
+            Integer id = Integer.parseInt(req.params(":id"));
+            Annos r = annosDao.findOne(id);
+            
+            annosDao.delete(id);
+            annosRaakaAineDao.deleteAnnos(id);
+            
+            map.put("id", id);
+            map.put("poistettu", r.getNimi());
+                    
+            return new ModelAndView(map, "poista");
+        }, new ThymeleafTemplateEngine());
+        
         
         // Create spesific Annos:
         Spark.get("/smoothiet/:id", (req, res) -> {
@@ -79,7 +98,7 @@ public class SmoothieMain {
             map.put("annosId", annosId);
             map.put("annos", annos);
             map.put("raakaAineet", raakaAineet);
-            map.put("annosRaakaAineet", annosRaakaAine.findAnnokseenLiittyvat(annosId));
+            map.put("annosRaakaAineet", annosRaakaAineDao.findAnnokseenLiittyvat(annosId));
             
             return new ModelAndView(map, "annos");
         },  new ThymeleafTemplateEngine());
@@ -88,19 +107,6 @@ public class SmoothieMain {
             RaakaAine r = new RaakaAine(-1, req.queryParams("nimi"));
             raakaAineDao.saveOrUpdate(r);
             res.redirect("/ainekset");
-            return "";
-        });
-        
-        Spark.post("ainekset/:id/poista", (req, res) -> {
-            raakaAineDao.delete(Integer.parseInt(req.params(":id")));
-            res.redirect("/ainekset"); //vai smoothiet?
-            return "";
-        });
-        
-        Spark.post("smoothiet/:id/poista", (req, res) -> {
-//            RaakaAine r = new RaakaAine(-1, req.queryParams("nimi"));
-//            raakaAineDao.saveOrUpdate(r);
-            res.redirect("/smoothiet"); //vai smoothiet?
             return "";
         });
         
