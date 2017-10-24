@@ -17,6 +17,7 @@ import tikape.runko.domain.Annos;
 import tikape.runko.domain.RaakaAine;
 import org.thymeleaf.context.Context;
 import tikape.runko.database.AnnosRaakaAineDao;
+import tikape.runko.domain.AnnosRaakaAine;
 
 /**
  *
@@ -108,6 +109,20 @@ public class SmoothieMain {
             Annos a = new Annos(-1, req.queryParams("nimi"));
             annosDao.saveOrUpdate(a);
             res.redirect("/smoothiet");
+            return "";
+        });
+        
+        Spark.post("/smoothiet", (req, res) -> {
+            Integer smoothieId = Integer.parseInt(req.queryParams("smoothie"));
+            Integer raakaAineId = Integer.parseInt(req.queryParams("raakaAine"));
+            
+            Integer maara = Integer.parseInt(req.queryParams("maara"));
+            Integer jarjestys = Integer.parseInt(req.queryParams("jarjestys"));
+            String ohje = req.queryParams("ohje");
+            
+            AnnosRaakaAine ara = new AnnosRaakaAine(-1,smoothieId,raakaAineId,jarjestys,maara,ohje);
+            
+            
             return "";
         });
         
