@@ -127,55 +127,24 @@ public class AnnosRaakaAineDao implements Dao<AnnosRaakaAine, Integer> {
         AnnosRaakaAine ar = findByAnnosIdRaakaAineId(object.getAnnosId(), object.getRaakaAineId());
 
         if (ar != null) {
+            return ar;
+        }
             try (Connection conn = database.getConnection()) {
                 PreparedStatement st = conn.prepareStatement(
-                        "SELECT maara FROM AnnosRaakaAine WHERE annos_id = ? AND raaka_aine_id = ?"
+                        "INSERT INTO AnnosRaakaAine (jarjestys, maara, ohje, raaka_aine_id, annos_id) "
+                        + " VALUES (?, ?, ?, ?, ?)"
                 );
 
-                st.setInt(1, object.getAnnosId());
-                st.setInt(2, object.getRaakaAineId());
+                st.setInt(1, object.getJarjestys());
+                st.setInt(2, object.getMaara());
+                st.setString(3, object.getOhje());
+                st.setInt(4, object.getRaakaAineId());
+                st.setInt(5, object.getAnnosId());
 
-                ResultSet rs = st.executeQuery();
-
-                if (rs.next()) {
-                    Integer maara_lisays = rs.getInt("maara") + object.getMaara();
-
-                    try (Connection conn2 = database.getConnection()) {
-                        PreparedStatement st2 = conn2.prepareStatement(
-                                "UPDATE AnnosRaakaAine SET maara = ? WHERE annos_id = ? AND raaka_aine_id = ?");
-
-                        st2.setInt(1, maara_lisays);
-                        st2.setInt(2, object.getAnnosId());
-                        st2.setInt(3, object.getRaakaAineId());
-
-                        st2.executeUpdate();
-
-                        st2.close();
-                        conn2.close();
-
-                    }
-                }
-
+                st.executeUpdate();
                 st.close();
                 conn.close();
-            }
-        }
-
-        try (Connection conn = database.getConnection()) {
-            PreparedStatement st = conn.prepareStatement(
-                    "INSERT INTO AnnosRaakaAine (jarjestys, maara, ohje, raaka_aine_id, annos_id) "
-                    + " VALUES (?, ?, ?, ?, ?)"
-            );
-
-            st.setInt(1, object.getJarjestys());
-            st.setInt(2, object.getMaara());
-            st.setString(3, object.getOhje());
-            st.setInt(4, object.getRaakaAineId());
-            st.setInt(5, object.getAnnosId());
-
-            st.executeUpdate();
-            st.close();
-            conn.close();
+            
         }
 
         return findByAnnosIdRaakaAineId(object.getAnnosId(), object.getRaakaAineId());
@@ -194,11 +163,18 @@ public class AnnosRaakaAineDao implements Dao<AnnosRaakaAine, Integer> {
                 return null;
             }
 
+            Integer id = rs.getInt("id");
+            Integer annos_id = rs.getInt("annos_id");
+            Integer raaka_aine_id = rs.getInt("raaka_aine_id");
+            Integer jarjestys = rs.getInt("jarjestys");
+            Integer maara = rs.getInt("maara");
+            String ohje = rs.getString("ohje");
+
             stmt.close();
             rs.close();
             conn.close();
 
-            return new AnnosRaakaAine(rs.getInt("id"), rs.getInt("annos_id"), rs.getInt("raaka_aine_id"), rs.getInt("jarjestys"), rs.getInt("maara"), rs.getString("ohje"));
+            return new AnnosRaakaAine(id, annos_id, raaka_aine_id, jarjestys, maara, ohje);
         }
     }
 }

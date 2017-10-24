@@ -46,6 +46,10 @@ public class AnnosRaakaAine {
     public String getOhje() {
         return ohje;
     }
+
+    public void setMaara(Integer maara_lisays) {
+        this.maara += maara_lisays;
+    }
     
     
     

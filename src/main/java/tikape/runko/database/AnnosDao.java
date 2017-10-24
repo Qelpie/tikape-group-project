@@ -97,14 +97,18 @@ public class AnnosDao implements Dao<Annos, Integer>{
             stmt.setString(1, name);
 
             ResultSet result = stmt.executeQuery();
+            
             if (!result.next()) {
                 return null;
             }
             
+            Integer id = result.getInt("id");
+            String nimi = result.getString("nimi");
+            
             result.close();
             conn.close();
 
-            return new Annos(result.getInt("id"), result.getString("nimi"));
+            return new Annos(id, nimi);
         }
     }
     

@@ -131,7 +131,6 @@ public class RaakaAineDao implements Dao<RaakaAine, Integer>{
             stmt.close();
             conn.close();
         }
-        
 
         return findByName(object.getNimi());
     }
@@ -146,11 +145,14 @@ public class RaakaAineDao implements Dao<RaakaAine, Integer>{
                 return null;
             }
             
+            Integer id = result.getInt("id");
+            String nimi = result.getString("nimi");
+            
             result.close();
             stmt.close();
             conn.close();
 
-            return new RaakaAine(result.getInt("id"), result.getString("nimi"));
+            return new RaakaAine(id, nimi);
         }
     }
 
