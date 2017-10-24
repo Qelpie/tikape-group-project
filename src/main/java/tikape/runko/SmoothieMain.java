@@ -55,6 +55,14 @@ public class SmoothieMain {
             return new ModelAndView(map, "ainekset");
         }, new ThymeleafTemplateEngine());
         
+        Spark.get("/poista", (req, res) -> {
+            HashMap map = new HashMap<>();
+            map.put("annokset", annosDao.findAll());
+            map.put("ainekset", raakaAineDao.findAll());
+
+            return new ModelAndView(map, "poista");
+        }, new ThymeleafTemplateEngine());
+        
         // Create spesific Annos:
         Spark.get("/smoothiet/:id", (req, res) -> {
             HashMap map = new HashMap<>();
@@ -78,6 +86,13 @@ public class SmoothieMain {
             RaakaAine r = new RaakaAine(-1, req.queryParams("nimi"));
             raakaAineDao.saveOrUpdate(r);
             res.redirect("/ainekset");
+            return "";
+        });
+        
+        Spark.post("/poista", (req, res) -> {
+//            RaakaAine r = new RaakaAine(-1, req.queryParams("nimi"));
+//            raakaAineDao.saveOrUpdate(r);
+            res.redirect("/ainekset"); //vai smoothiet?
             return "";
         });
     }

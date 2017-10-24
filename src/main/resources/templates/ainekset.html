@@ -16,7 +16,7 @@ and open the template in the editor.
         
         <ul>
             <li th:each="raakaAine : ${ainekset}">
-                <span th:text="${raakaAine.nimi}">raakaAine</span>
+                <span th:text="${raakaAine.nimi}">raakaAine <a th:href="@{~/ainekset/{id}/poista(id=${annos.id})}">(poista)</a></span>
             </li>
         </ul>
         
@@ -25,7 +25,7 @@ and open the template in the editor.
         <form method="POST" action="/ainekset">
             Raaka-aineen nimi:<br/>
             <input type="text" name="nimi"/><br/>
-            <input type="submit" value="Liaa"/>
+            <input type="submit" value="Lisaa"/>
         </form>
         
         <ul>
