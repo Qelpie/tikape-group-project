@@ -55,8 +55,10 @@ public class SmoothieMain {
             return new ModelAndView(map, "ainekset");
         }, new ThymeleafTemplateEngine());
         
-        Spark.get("/poista", (req, res) -> {
+        Spark.get("/:id/poista", (req, res) -> {
             HashMap map = new HashMap<>();
+            Integer id = Integer.parseInt(req.params(":id"));
+            
             map.put("annokset", annosDao.findAll());
             map.put("ainekset", raakaAineDao.findAll());
 

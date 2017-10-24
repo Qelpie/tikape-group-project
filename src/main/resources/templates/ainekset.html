@@ -16,11 +16,14 @@ and open the template in the editor.
         
         <ul>
             <li th:each="raakaAine : ${ainekset}">
-                <span th:text="${raakaAine.nimi}">raakaAine <a th:href="@{~/ainekset/{id}/poista(id=${annos.id})}">(poista)</a></span>
+                <div>
+                    <span th:text="${raakaAine.nimi}">raakaAine</span>
+                    <a th:href="@{~/ainekset/{id}/poista(id=${raakaAine.id})}">(poista)</a>
+                </div>
             </li>
         </ul>
         
-        <p><b>Lisaa uusi raaka-aine</b></p>
+        <h4>Lisaa uusi raaka-aine</h4>
         
         <form method="POST" action="/ainekset">
             Raaka-aineen nimi:<br/>
