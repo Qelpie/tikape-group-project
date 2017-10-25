@@ -13,6 +13,7 @@ User interface has a list of smoothie names as links. Clicking a smoothie name y
   - smoothiet.db
 
 # Java source packages included:
+With JDBC and Java Spark dependencies, under src/main/java/:
 - tikape.runko: 
   - SmoothieMain.java
   
@@ -38,5 +39,5 @@ User interface has a list of smoothie names as links. Clicking a smoothie name y
   
 # Documents:
 - README.md
-- smoothiet_ryhmatyo_document.pdf (In Finnish)
+- Tikape_ryhmatyo_smoothiet.pdf (In Finnish)
 
