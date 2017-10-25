@@ -53,30 +53,30 @@ public class SmoothieMain {
         
         Spark.get("/ainekset/:id/poista", (req, res) -> {
             HashMap map = new HashMap<>();
-            Integer id = Integer.parseInt(req.params(":id"));
-            RaakaAine r = raakaAineDao.findOne(id);
+            Integer raakaAineId = Integer.parseInt(req.params(":id"));
+            RaakaAine raakaAine = raakaAineDao.findOne(raakaAineId);
             
             // Delete raakaAine and its relations:
-            raakaAineDao.delete(id);
-            annosRaakaAineDao.deleteRaakaAine(id);
+            raakaAineDao.delete(raakaAineId);
+            annosRaakaAineDao.deleteRaakaAine(raakaAineId);
             
-            map.put("id", id);
-            map.put("poistettu", r.getNimi());
+            map.put("id", raakaAineId);
+            map.put("poistettu", raakaAine.getNimi());
                     
             return new ModelAndView(map, "poista");
         }, new ThymeleafTemplateEngine());
         
         Spark.get("/smoothiet/:id/poista", (req, res) -> {
             HashMap map = new HashMap<>();
-            Integer id = Integer.parseInt(req.params(":id"));
-            Annos a = annosDao.findOne(id);
+            Integer annosId = Integer.parseInt(req.params(":id"));
+            Annos annos = annosDao.findOne(annosId);
             
             // Delete Annos and its relations.
-            annosDao.delete(id);
-            annosRaakaAineDao.deleteAnnos(id);
+            annosDao.delete(annosId);
+            annosRaakaAineDao.deleteAnnos(annosId);
             
-            map.put("id", id);
-            map.put("poistettu", a.getNimi());
+            map.put("id", annosId);
+            map.put("poistettu", annos.getNimi());
                     
             return new ModelAndView(map, "poista");
         }, new ThymeleafTemplateEngine());
@@ -127,8 +127,8 @@ public class SmoothieMain {
             Integer jarjestys = Integer.parseInt(req.queryParams("jarjestys"));
             String ohje = req.queryParams("ohje");
             
-            AnnosRaakaAine ara = new AnnosRaakaAine(-1 ,annosId, raakaAineId, jarjestys, maara, ohje);
-            annosRaakaAineDao.saveOrUpdate(ara);
+            AnnosRaakaAine annosRaakaAine = new AnnosRaakaAine(-1 ,annosId, raakaAineId, jarjestys, maara, ohje);
+            annosRaakaAineDao.saveOrUpdate(annosRaakaAine);
            
             res.redirect("/smoothiet");
             return "";
