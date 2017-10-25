@@ -40,4 +40,5 @@ With JDBC and Java Spark dependencies, under src/main/java/:
 # Documents:
 - README.md
 - Tikape_ryhmatyo_smoothiet.pdf (In Finnish)
+- UML-diagram for Java Classes: tietokantakaavio.png
 
