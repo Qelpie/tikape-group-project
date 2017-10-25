@@ -9,7 +9,7 @@ Terms are in Finnish. Smoothie database has Smoothies (Smoothie Annos) and ingre
 User interface has a list of smoothie names as links. Clicking a smoothie name you can see its' ingredients. In the front page there are also links to add an ingredient to the database and to form a new smoothie with ingredients.
 
 # Database:
-- /db:
+- db:
   - smoothiet.db
 
 # Java source packages included:
