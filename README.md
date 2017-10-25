@@ -2,7 +2,7 @@
 
 This repository is a fork from Helsinki University database course's basic repository. Group project is based on the forked repository's structure and given problem.
 
-Our small task was to make a database for Smoothie archive and a small and simple user interface with Java/JDBC, Thymeleaf and Html.
+Our small task was to make a database for Smoothie archive and a small and simple user interface with Java (and: JDBC, Spark), Thymeleaf and Html.
 
 Terms are in Finnish. Smoothie database has Smoothies (Smoothie Annos) and ingredients (RaakaAine). One ingredient can be included in many different smoothies. Their relation in the database is called AnnosRaakaAine.
 
